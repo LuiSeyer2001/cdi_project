@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuthContext } from '@hooks'
-import pb from 'lib/pocketbase'
+import pb from '@lib/pocketbase'
 
 const useLogin = () => {
   const [error, setError] = useState(null)

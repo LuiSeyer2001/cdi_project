@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Box } from '@mui/material'
+import resetDB from '@lib/reset'
 
 const SVGLogo = '/images/logotipo.svg'
 
@@ -27,6 +28,14 @@ const HomePage = () => {
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: '2rem' }}>
           <Button size='large' variant='contained' component={Link} to='/login'>
             Comenzar
+          </Button>
+          <Button
+            id='resetdb'
+            sx={{ visibility: 'hidden', position: 'absolute', zIndex: -1 }}
+            size='large' color='warning' variant='contained'
+            onClick={resetDB}
+          >
+            Reset DB
           </Button>
         </Box>
       </Box>

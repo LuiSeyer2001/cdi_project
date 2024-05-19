@@ -1,5 +1,5 @@
 import { useAuthContext } from '@hooks'
-import pb from 'lib/pocketbase'
+import pb from '@lib/pocketbase'
 
 const useLogout = () => {
   const { dispatch } = useAuthContext()

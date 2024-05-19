@@ -1,5 +1,5 @@
 import { createContext, memo, useReducer } from 'react'
-import pb from 'lib/pocketbase'
+import pb from '@lib/pocketbase'
 
 const AuthContext = createContext()
 

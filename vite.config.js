@@ -77,14 +77,15 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'lib': resolve(__dirname, './lib'),
       '@': resolve(__dirname, './src'),
       '@assets': resolve(__dirname, './src/assets'),
       '@components': resolve(__dirname, './src/components'),
       '@contexts': resolve(__dirname, './src/contexts'),
       '@helpers': resolve(__dirname, './src/helpers'),
       '@hooks': resolve(__dirname, './src/hooks'),
-      '@pages': resolve(__dirname, './src/pages')
+      '@pages': resolve(__dirname, './src/pages'),
+      '@lib': resolve(__dirname, './lib')
+
     }
   }
 })

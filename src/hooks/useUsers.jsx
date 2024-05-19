@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import pb from 'lib/pocketbase'
+import pb from '@lib/pocketbase'
 
 export const useGetUsers = ({ page = 1, limit = 10, isActive = true, search = '' }) => {
   const queryClient = useQueryClient()
