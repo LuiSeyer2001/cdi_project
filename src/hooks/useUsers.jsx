@@ -1,0 +1,94 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import pb from 'lib/pocketbase'
+
+export const useGetUsers = ({ page = 1, limit = 10, isActive = true, search = '' }) => {
+  const queryClient = useQueryClient()
+
+  return useQuery({
+    queryKey: ['users', { page, limit, isActive, search }],
+
+    queryFn: async () => {
+      const searchQuery = search ? ` && (firstnames ~ "${search}" || lastnames ~ "${search}" || dni ~ "${search}")` : ''
+
+      const data = await pb.collection('users').getList(page, limit, {
+        filter: `isActive = ${isActive}` + searchQuery
+      })
+
+      return data
+    },
+
+    onSuccess: (data) => {
+      data.items?.forEach(user => {
+        queryClient.setQueryData(['users', { id: user.id }], user)
+      })
+    }
+  })
+}
+
+export const useGetUser = (id) => {
+  const queryClient = useQueryClient()
+
+  return useQuery({
+    queryKey: ['users', { id }],
+
+    queryFn: async () => {
+      const data = await pb.collection('users').getOne(id)
+      return data
+    },
+
+    onSuccess: (data, id) => {
+      queryClient.setQueryData(['users', { id }], data)
+    }
+  })
+}
+
+export const useUpdateUser = (id) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationKey: ['users', { id }],
+
+    mutationFn: async (body) => {
+      const data = await pb.collection('users').update(id, body)
+      return data
+    },
+
+    onSuccess: (data) => {
+      queryClient.setQueryData(['users', { id: data.id }], data)
+    }
+  })
+}
+
+export const useManageActiveUser = (id) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationKey: ['users', { id }],
+
+    mutationFn: async (isActive) => {
+      const data = await pb.collection('users').update(id, { isActive: !isActive })
+      return data
+    },
+
+    onSuccess: (data) => {
+      queryClient.setQueryData(['users', { id: data.id }], data)
+    }
+  })
+}
+
+export const useManageAdminUser = (id) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationKey: ['users', { id }],
+
+    mutationFn: async (isAdmin) => {
+      const data = await pb.collection('users').update(id, { isAdmin: !isAdmin })
+      return data
+    },
+
+    onSuccess: (data) => {
+      queryClient.setQueryData(['users', { id: data.id }], data)
+    }
+  })
+}

@@ -1,29 +1,40 @@
 {
   "name": "migglet",
-  "version": "0.9.0",
-  "main": "index.js",
+  "private": true,
+  "version": "0.9.1",
   "type": "module",
-  "engines": {
-    "npm": ">= 7.9.0",
-    "node": ">= 18.11.0"
-  },
-  "workspaces": [
-    "api",
-    "app"
-  ],
   "scripts": {
-    "build": "npm run build --workspace=app",
-    "start:api": "npm run start --workspace=api",
-    "start:app": "npm run preview --workspace=app",
-    "dev:api": "npm run dev --workspace=api",
-    "dev:app": "npm run dev --workspace=app",
-    "test:api": "npm run test --workspace=api",
-    "test:app": "echo \"aún no existe este test\"",
-    "reset-data-base": "npm run reset-data-base --workspace=api"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "pocketbase": "cd pocketbase && pocketbase serve",
+    "start": "concurrently \"npm:preview\" \"npm:pocketbase\""
+  },
+  "dependencies": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@mui/icons-material": "5.13.7",
+    "@mui/material": "5.13.7",
+    "@tanstack/react-query": "4.29.19",
+    "@tiptap/pm": "2.0.3",
+    "@tiptap/react": "2.0.3",
+    "@tiptap/starter-kit": "2.0.3",
+    "html-to-md": "0.8.3",
+    "marked": "5.1.1",
+    "pocketbase": "0.21.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.14.1"
   },
   "devDependencies": {
-    "cross-env": "7.0.3",
-    "standard": "17.1.0"
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@vitejs/plugin-react": "4.0.2",
+    "concurrently": "8.2.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "standard": "17.1.0",
+    "vite": "4.5.3",
+    "vite-plugin-pwa": "0.16.4"
   },
   "eslintConfig": {
     "plugins": [
@@ -36,9 +47,6 @@
     "rules": {
       "import/no-absolute-path": "off",
       "camelcase": "off"
-    },
-    "env": {
-      "jest": true
     }
   }
 }
