@@ -4,11 +4,10 @@
   "version": "0.9.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
     "pocketbase": "cd pocketbase && pocketbase serve",
-    "start": "concurrently \"npm:preview\" \"npm:pocketbase\""
+    "dev": "concurrently \"vite\" \"npm:pocketbase\"",
+    "preview": "concurrently \"vite preview\" \"npm:pocketbase\""
   },
   "dependencies": {
     "@emotion/react": "11.11.1",
