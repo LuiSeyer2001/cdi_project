@@ -11,7 +11,8 @@ export const useGetUsers = ({ page = 1, limit = 10, isActive = true, search = ''
       const searchQuery = search ? ` && (firstnames ~ "${search}" || lastnames ~ "${search}" || dni ~ "${search}")` : ''
 
       const data = await pb.collection('users').getList(page, limit, {
-        filter: `isActive = ${isActive}` + searchQuery
+        filter: `isActive = ${isActive}` + searchQuery,
+        sort: '-updated'
       })
 
       return data

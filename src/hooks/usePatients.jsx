@@ -8,7 +8,9 @@ export const useGetPatients = ({ page = 1, limit = 10, search = '' }) => {
     queryKey: ['patients', { page, limit, search }],
 
     queryFn: async () => {
-      const data = await pb.collection('patients').getList(page, limit)
+      const data = await pb.collection('patients').getList(page, limit, {
+        sort: '-updated'
+      })
       return data
     },
 
@@ -29,9 +31,8 @@ export const useGetPatient = (id) => {
         expand: 'medicalBackgrounds,consultations.medic'
       })
 
-      data.medicalBackgrounds = data.expand.medicalBackgrounds
-
-      data.consultations = data.expand.consultations.reverse()
+      data.medicalBackgrounds = data.expand?.medicalBackgrounds || []
+      data.consultations = data.expand?.consultations?.reverse() || []
       data.consultations.forEach(consultation => {
         consultation.medic = `${consultation.expand.medic.firstnames} ${consultation.expand.medic.lastnames}`
       })
